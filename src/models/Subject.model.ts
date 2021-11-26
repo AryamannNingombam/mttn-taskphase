@@ -17,7 +17,7 @@ export const SubjectSchema = new mongoose.Schema({
     required: true,
   },
   semester: {
-    type: String,
+    type: Number,
     required: true,
   },
 })

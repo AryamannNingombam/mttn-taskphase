@@ -6,7 +6,6 @@ export interface MaterialDoc extends mongoose.Document {
   description: string
   url: string
   semester: number
-  owner: mongoose.Types.ObjectId
   stream: mongoose.Types.ObjectId
   subject:mongoose.Types.ObjectId
   timestamp: Date
@@ -32,10 +31,7 @@ export const MaterialSchema = new mongoose.Schema({
     min: 1,
     max: 8,
   },
-  owner: {
-    type: mongoose.Types.ObjectId,
-    required: true,
-  },
+ 
   stream: {
     type: mongoose.Types.ObjectId,
     required: true,
