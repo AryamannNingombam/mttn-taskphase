@@ -21,7 +21,32 @@ export const AddSubject = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-
+export const DeleteSubject = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { _id } = req.params
+  if (_id)
+    return res.status(500).json({
+      success: false,
+      message: 'Required values not provided!',
+    })
+  SubjectModel.findByIdAndDelete(_id)
+    .then(() => {
+      return res.status(200).json({
+        success: true,
+      })
+    })
+    .catch((err) => {
+      console.log('error')
+      console.log(err)
+      return res.status(500).json({
+        success: false,
+        message: 'Unknown server error!',
+      })
+    })
+}
 
 export const GetSubjectsForStream = async (
   req: Request,
