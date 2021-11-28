@@ -1,10 +1,17 @@
-require('dotenv').config({
-  path: __dirname + '/.env',
+import dotenv from 'dotenv'
+dotenv.config({
+  path: __dirname + `/.env`,
 })
 import { Request, Response, NextFunction } from 'express'
 import express from 'express'
+import cors from 'cors'
+import { AdminRouter } from './routes/Admin.routes'
+import { MaterialRouter } from './routes/Material.routes'
+import { RatingRouter } from './routes/Rating.routes'
+import { StreamRouter } from './routes/Stream.routes'
+import { SubjectRouter } from './routes/Subject.routes'
+import { connectToDB } from './config/db.config'
 
-import cors from 'cors';
 const app = express()
 
 const whitelist = ['*']
@@ -47,7 +54,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use(express.urlencoded())
 app.use(express.json())
-
+app.use('/api/admin', AdminRouter)
+app.use('/api/material', MaterialRouter)
+app.use('/api/rating', RatingRouter)
+app.use('/api/stream', StreamRouter)
+app.use('/api/subject', SubjectRouter)
 app.get('/welcome', (req: Request, res: Response, next: NextFunction) => {
   return res.status(200).json({
     success: true,
@@ -56,5 +67,11 @@ app.get('/welcome', (req: Request, res: Response, next: NextFunction) => {
 })
 const PORT = process.env.PORT || 8010
 app.listen(PORT, () => {
-  console.log('working...')
+  connectToDB()
+    .then(() => {
+      console.log('working...')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 })

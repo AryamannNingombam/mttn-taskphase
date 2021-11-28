@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose'
+import mongoose from 'mongoose'
 import RatingModel from './Rating.model'
 
 export interface MaterialDoc extends mongoose.Document {

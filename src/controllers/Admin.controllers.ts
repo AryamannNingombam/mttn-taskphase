@@ -15,7 +15,7 @@ export const SignIn = (req: Request, res: Response, next: NextFunction) => {
       message: 'Invalid creds!',
     })
   }
-  const token = jwt.sign({ username }, process.env.JWT_SECRET || 'OKAY', {
+  const token = jwt.sign({ username }, process.env.JWT_HASH || 'OKAY', {
     expiresIn: '5h',
   })
   return res.status(200).json({
